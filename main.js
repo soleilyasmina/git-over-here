@@ -23,10 +23,10 @@ const main = async () => {
     let { status } = e.response;
     switch(status) {
       case 404:
-        console.log('Sorry, this repo was not found!');
+        console.log('echo Sorry, this repo was not found!');
         break;
       default:
-        console.log('Error.');
+        console.log('echo Error.');
         break;
     }
   }
