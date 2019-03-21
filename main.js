@@ -6,7 +6,7 @@ const BASE_URL = 'https://git.generalassemb.ly/';
 
 const main = async () => {
   try {
-    console.log(`Welcome to ${chalk.blue('Git Over Here')}!`);
+    console.log(`echo Welcome to Git Over Here!`);
     const COHORT = prompt.question(`What is the name of your ${chalk.red('cohort')}? \n`);
     const REPO = prompt.question(`What is the name of your ${chalk.red('repo')}? \n`);
     console.log('\n');
