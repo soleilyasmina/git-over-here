@@ -16,9 +16,9 @@ const main = async () => {
     console.log(`rm -rf ${REPO} && mkdir ${REPO} && cd ${REPO}`);
     const submits = resp.data.forEach(item => {
       let user = item.user.login;
-      let title = item.title;
-      console.log(`git clone ${BASE_URL}${user}/${REPO} ${title.split(' ')[0]}`);
-      console.log(`cd ${user} && npm install && cd ..`);
+      let title = item.title.split(' ')[0];
+      console.log(`git clone ${BASE_URL}${user}/${REPO} ${title}`);
+      console.log(`cd ${title} && npm install && cd ..`);
     });
   } catch (e) {
     let { status } = e.response;
