@@ -20,7 +20,7 @@ const main = async () => {
       console.log(`cd ${user} && npm install && cd ..`);
     });
   } catch (e) {
-    let { status } = e.response
+    let { status } = e.response;
     switch(status) {
       case 404:
         console.log('Sorry, this repo was not found!');
