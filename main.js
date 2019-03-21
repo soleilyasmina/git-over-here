@@ -1,14 +1,13 @@
 const axios = require('axios');
 const prompt = require('readline-sync');
-const chalk = require('chalk');
 
 const BASE_URL = 'https://git.generalassemb.ly/';
 
 const main = async () => {
   try {
     console.log(`echo Welcome to Git Over Here!`);
-    const COHORT = prompt.question(`What is the name of your ${chalk.red('cohort')}? \n`);
-    const REPO = prompt.question(`What is the name of your ${chalk.red('repo')}? \n`);
+    const COHORT = prompt.question(`What is the name of your cohort? \n`);
+    const REPO = prompt.question(`What is the name of your repo? \n`);
     console.log('\n');
     const resp = await axios({
       method: 'get',
