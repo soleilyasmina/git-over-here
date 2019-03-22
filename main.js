@@ -6,8 +6,8 @@ const BASE_URL = 'https://git.generalassemb.ly/';
 const main = async () => {
   try {
     console.log(`echo Welcome to Git Over Here!`);
-    const COHORT = prompt.question(`What is the name of your cohort? \n`);
-    const REPO = prompt.question(`What is the name of your repo? \n`);
+    const COHORT = prompt.question(`What is the name of your GitHub organization? (e.g. sei-nyc-jeopardy)\n`);
+    const REPO = prompt.question(`Which repository do you want to pull from? (e.g. js-data-types-homework)\n`);
     console.log('\n');
     const resp = await axios({
       method: 'get',
