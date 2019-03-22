@@ -13,7 +13,7 @@ const main = async () => {
       method: 'get',
       url: `https://git.generalassemb.ly/api/v3/repos/${COHORT}/${REPO}/pulls`
     });
-    console.log(`rm -rf ${REPO} && mkdir ${REPO} && cd ${REPO}`);
+    console.log(`cd .. && rm -rf ${REPO} && mkdir ${REPO} && cd ${REPO}`);
     const submits = resp.data.forEach(item => {
       let user = item.user.login;
       let title = item.title.split(' ')[0];
