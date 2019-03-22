@@ -8,6 +8,7 @@ const main = async () => {
     console.log(`echo Welcome to Git Over Here!`);
     const COHORT = prompt.question(`What is the name of your GitHub organization? (e.g. sei-nyc-jeopardy)\n`);
     const REPO = prompt.question(`Which repository do you want to pull from? (e.g. js-data-types-homework)\n`);
+    const NPM = prompt.question(`Do you need to install any dependencies with NPM? (yes/no) \n`);
     console.log('\n');
     const resp = await axios({
       method: 'get',
@@ -18,7 +19,7 @@ const main = async () => {
       let user = item.user.login;
       let title = item.title.split(' ')[0];
       console.log(`git clone ${BASE_URL}${user}/${REPO} ${title}`);
-      console.log(`cd ${title} && npm install && cd ..`);
+      console.log(`cd ${title} ${NPM === 'yes' ? '&& npm install' : ''} && cd ..`);
     });
   } catch (e) {
     let { status } = e.response;
