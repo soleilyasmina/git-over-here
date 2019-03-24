@@ -11,6 +11,9 @@ const colorText = (text, color) => {
     case 'red':
       color = `$(tput setaf 1)`;
       break;
+    case 'green':
+      color = `$(tput setaf 2)`;
+      break;
     default:
       color = '';
       break;
@@ -26,9 +29,9 @@ const main = async () => {
     const resp = await axios({
       method: 'get',
       url: `https://git.generalassemb.ly/api/v3/repos/${COHORT}/${REPO}/pulls`
-    });
-    const NPM = prompt.question(`Do you need to install any dependencies with NPM? (yes/no) \n`);
-    console.log('\n');
+    })
+    console.log(`echo ${colorText('Repo found!', 'green')}\n`);
+    const NPM = prompt.question(`Do you need to install any dependencies with NPM? (yes/no)\n`);
     console.log(`cd .. && rm -rf ${REPO} && mkdir ${REPO} && cd ${REPO}`);
     const submits = resp.data.forEach(item => {
       let user = item.user.login;
@@ -36,6 +39,7 @@ const main = async () => {
       console.log(`git clone ${BASE_URL}${user}/${REPO} ${title}`);
       console.log(`cd ${title} ${NPM === 'yes' ? '&& npm install' : ''} && cd ..`);
     });
+    console.log(`echo ${colorText('Fetch complete!\n', 'green')}`);
   } catch (e) {
     let { status } = e.response;
     switch(status) {
