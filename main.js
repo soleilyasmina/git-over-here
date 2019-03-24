@@ -42,13 +42,22 @@ const main = async () => {
     });
     console.log(`echo ${colorText('Fetch complete!', 'green')}`);
   } catch (e) {
-    let { status } = e.response;
+    let status;
+      try {
+        status = e.response.status;
+      } catch (e) {
+        status = undefined;
+      }
     switch(status) {
       case 404:
         console.log(`echo Sorry, this repo was ${colorText('not found', 'red')}!`);
         break;
+      case undefined:
+        console.log(`echo Sorry, your connection was interrupted.`);
+        break;
       default:
         console.log('echo Error.');
+        console.log(`echo ${status}`)
         break;
     }
   }
