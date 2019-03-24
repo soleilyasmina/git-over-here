@@ -3,13 +3,19 @@ const prompt = require('readline-sync');
 
 const BASE_URL = 'https://git.generalassemb.ly/';
 const colorText = (text, color) => {
-  let reset = `$(tput sgr0)`;
+  let reset = `$(tput sgr0)`; // adds attribute reset
   switch(color) {
     case 'blue':
-      return `$(tput setaf 4)${text+reset}`;
+      color = `$(tput setaf 4)`;
+      break;
+    case 'red':
+      color = `$(tput setaf 1)`;
+      break;
     default:
-      return text;
+      color = '';
+      break;
   }
+  return color + text + reset;
 }
 
 const main = async () => {
@@ -34,7 +40,7 @@ const main = async () => {
     let { status } = e.response;
     switch(status) {
       case 404:
-        console.log('echo Sorry, this repo was not found!');
+        console.log(`echo Sorry, this repo was ${colorText('not found', 'red')}!`);
         break;
       default:
         console.log('echo Error.');
