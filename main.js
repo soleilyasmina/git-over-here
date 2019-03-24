@@ -32,7 +32,7 @@ const main = async () => {
       url: `https://git.generalassemb.ly/api/v3/repos/${COHORT}/${REPO}/pulls`
     });
     console.log(`echo ${colorText('Repo found!', 'green')}`);
-    console.log(`echo ${colorText(`${resp.data.length !== 1 ? resp.data.length + ' submissions' : '1 submission' } pulled.`, 'green')}`);
+    console.log(`echo ${colorText(`${resp.data.length !== 1 ? resp.data.length + ' submissions' : '1 submission' } pulled.`, 'green')} Copying into ${colorText(`${REPO}`, 'blue')}.`);
     console.log(`cd .. && rm -rf ${REPO} && mkdir ${REPO} && cd ${REPO}`);
     const submits = resp.data.forEach(item => {
       let user = item.user.login;
