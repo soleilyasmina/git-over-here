@@ -2,10 +2,19 @@ const axios = require('axios');
 const prompt = require('readline-sync');
 
 const BASE_URL = 'https://git.generalassemb.ly/';
+const colorText = (text, color) => {
+  let reset = `$(tput sgr0)`;
+  switch(color) {
+    case 'blue':
+      return `$(tput setaf 4)${text+reset}`;
+    default:
+      return text;
+  }
+}
 
 const main = async () => {
   try {
-    console.log(`echo Welcome to Git Over Here!`);
+    console.log(`echo Welcome to ${colorText('Git Over Here', 'blue')}!`);
     const COHORT = prompt.question(`What is the name of your GitHub organization? (e.g. sei-nyc-jeopardy)\n`);
     const REPO = prompt.question(`Which repository do you want to pull from? (e.g. js-data-types-homework)\n`);
     const NPM = prompt.question(`Do you need to install any dependencies with NPM? (yes/no) \n`);
