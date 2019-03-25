@@ -1,6 +1,7 @@
 const axios = require('axios');
 const prompt = require('readline-sync');
-const { green, blue, red } = require('./style');
+const { green, blue, red, bell } = require('./style');
+
 require('dotenv').config();
 
 const BASE_URL = 'https://git.generalassemb.ly/';
@@ -39,12 +40,13 @@ const main = async () => {
       const submits = resp.data.forEach(item => {
         let user = item.user.login;
         let title = item.title.split(' ')[0].replace(`'s`,'');
-        console.log(`git clone ${BASE_URL}${user}/${REPO} ${title}`);
+        console.log(`git clone ${BASE_URL}${user}/${REPO} ${title} --quiet`);
         console.log(`cd ${title} ${NPM === 'yes' ? '&& npm install' : ''} && cd ..`);
       });
       console.log(`echo ${green('Fetch complete!')}`);
       running = false;
     } catch (e) {
+      bell();
       let status;
         try {
           status = e.response.status;
@@ -66,7 +68,7 @@ const main = async () => {
       console.log(`echo Would you like to try again? yes/no\n`);
       let tryAgain = prompt.question();
       if (tryAgain !== 'yes') {
-        console.log(`echo Thank you for using ${style('Git Over Here', 'blue')}.`);
+        console.log(`echo Thank you for using ${blue('Git Over Here')}.`);
         running = false;
       }
     }

@@ -12,5 +12,5 @@ const white = (text) => `$(tput setaf 7)${text+reset}`;
 const bell = () => console.log(`tput bel`);
 
 module.exports = {
-  black, red, green, yellow, blue, magenta, cyan, white
+  black, red, green, yellow, blue, magenta, cyan, white, bell
 };
