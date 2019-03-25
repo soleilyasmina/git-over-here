@@ -7,7 +7,7 @@ const setup = () => {
   console.log(`echo What would you like to be called by ${blue('Git Over Here')}?`);
   const COWPOKE = prompt.question();
   let info = `\"COHORT=${COHORT}\nCOWPOKE=${COWPOKE}\"`;
-  console.log(`touch .env && echo ${info} > .env && echo .env >> .gitignore`);
+  console.log(`touch .env && echo ${info} > .env`);
   console.log(`echo ${green('Thank you!')}`);
   console.log(`echo Would you like to run ${blue('Git Over Here')}, or exit setup? run/exit`);
   const RUN = prompt.question();
