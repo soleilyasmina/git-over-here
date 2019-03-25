@@ -1,5 +1,6 @@
 const axios = require('axios');
 const prompt = require('readline-sync');
+require('dotenv').config();
 
 const BASE_URL = 'https://git.generalassemb.ly/';
 const colorText = (text, color) => {
@@ -23,6 +24,7 @@ const colorText = (text, color) => {
 
 const main = async () => {
   console.log(`echo Welcome to ${colorText('Git Over Here', 'blue')}!`);
+  console.log(`echo ${process.env.COHORT}`);
   let running = true;
   while (running) {
     try {
