@@ -23,6 +23,16 @@ const colorText = (text, color) => {
   return color + text + reset;
 }
 
+const setCohort = () => {
+  if (process.env.COHORT) {
+    console.log(`echo We\'ll be pulling from ${process.env.COHORT}. If you'd like to change that, exit and run npm run setup.`);
+    return process.env.COHORT;
+  } else {
+    console.log(`echo What is the name of your ${colorText('GitHub organization', 'blue')}? e.g. ${colorText('sei-nyc-jeopardy','green')}\n`);
+    return prompt.question();
+  }
+}
+
 const main = async () => {
   if (process.env.COWPOKE) {
     console.log(`echo Welcome to ${colorText('Git Over Here', 'blue')}, ${colorText(process.env.COWPOKE, 'green')}!`)
@@ -32,11 +42,10 @@ const main = async () => {
   let running = true;
   while (running) {
     try {
-      console.log(`echo What is the name of your ${colorText('GitHub organization', 'blue')}? e.g. ${colorText('sei-nyc-jeopardy','green')}\n`);
-      const COHORT = prompt.question();
+      const COHORT = setCohort();
       console.log(`echo Which ${colorText('repository', 'blue')} do you want to pull from? e.g. ${colorText('js-data-types-homework', 'green')}\n`);
       const REPO = prompt.question();
-            const resp = await axios({
+      const resp = await axios({
         method: 'get',
         url: `https://git.generalassemb.ly/api/v3/repos/${COHORT}/${REPO}/pulls`
       });
