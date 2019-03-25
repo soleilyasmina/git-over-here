@@ -9,11 +9,14 @@
     "start": "node main.js | bash"
   },
   "keywords": [],
-  "author": "",
+  "author": "Soleil Solomon",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://git.generalassemb.ly/soleilyasmina/git-over-here.git"
+  },
   "dependencies": {
     "axios": "^0.18.0",
-    "chalk": "^2.4.2",
     "dotenv": "^7.0.0",
     "readline-sync": "^1.4.9"
   }
