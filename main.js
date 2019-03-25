@@ -3,6 +3,7 @@ const prompt = require('readline-sync');
 require('dotenv').config();
 
 const BASE_URL = 'https://git.generalassemb.ly/';
+
 const colorText = (text, color) => {
   let reset = `$(tput sgr0)`; // adds attribute reset
   switch(color) {
@@ -23,8 +24,11 @@ const colorText = (text, color) => {
 }
 
 const main = async () => {
-  console.log(`echo Welcome to ${colorText('Git Over Here', 'blue')}!`);
-  console.log(`echo ${process.env.COHORT}`);
+  if (process.env.COWPOKE) {
+    console.log(`echo Welcome to ${colorText('Git Over Here', 'blue')}, ${colorText(process.env.COWPOKE, 'green')}!`)
+  } else {
+    console.log(`echo Welcome to ${colorText('Git Over Here', 'blue')}!`);
+  }
   let running = true;
   while (running) {
     try {
