@@ -1,5 +1,6 @@
 # Git Over Here
-!(Git Cowpoke)[./git-over-here.jpeg]
+![Git Cowpoke](./git-over-here.jpg)
+
 A homework helper for GA IAs. Inspired by simon-script.
 
 ## How to Use!
