@@ -40,7 +40,8 @@ const main = async () => {
       const submits = resp.data.forEach(item => {
         let user = item.user.login;
         let title = item.title.split(' ')[0].replace(`'s`,'');
-        console.log(`git clone ${BASE_URL}${user}/${REPO} ${title} --quiet`);
+        let branch = item.head.ref;
+        console.log(`git clone --single-branch --branch ${branch} ${BASE_URL}${user}/${REPO} ${title} --quiet`);
         console.log(`cd ${title} ${NPM === 'yes' ? '&& npm install' : ''} && cd ..`);
       });
       console.log(`echo ${green('Fetch complete!')}`);
