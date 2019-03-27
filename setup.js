@@ -6,7 +6,9 @@ const setup = () => {
   const COHORT = prompt.question();
   console.log(`echo What would you like to be called by ${blue('Git Over Here')}?`);
   const COWPOKE = prompt.question();
-  let info = `\"COHORT=${COHORT}\nCOWPOKE=${COWPOKE}\"`;
+  console.log(`echo What is your ${blue('personal access token')}?\n`);
+  const TOKEN = prompt.question();
+  let info = `\"COHORT=${COHORT}\nCOWPOKE=${COWPOKE}\nTOKEN=${TOKEN}\"`;
   console.log(`touch .env && echo ${info} > .env`);
   console.log(`echo ${green('Thank you!')}`);
   console.log(`echo Would you like to run ${blue('Git Over Here')}, or exit setup? run/exit`);

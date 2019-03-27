@@ -30,7 +30,10 @@ const main = async () => {
       const REPO = prompt.question();
       const resp = await axios({
         method: 'get',
-        url: `https://git.generalassemb.ly/api/v3/repos/${COHORT}/${REPO}/pulls`
+        url: `https://git.generalassemb.ly/api/v3/repos/${COHORT}/${REPO}/pulls`,
+        headers: {
+          'Authorization': `token ${process.env.TOKEN}`
+        }
       });
       console.log(`echo ${green('Repo found!')}`);
       console.log(`echo ${green(`${resp.data.length !== 1 ? resp.data.length + ' submissions' : '1 submission' } pulled.`)} Copying into ${blue(`${REPO}`)}.`);
