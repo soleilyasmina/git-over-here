@@ -8,7 +8,7 @@ const BASE_URL = 'https://git.generalassemb.ly/';
 
 const setCohort = () => {
   if (process.env.COHORT) {
-    console.log(`echo Git Over Here is pulling from ${blue(process.env.COHORT)}. To change that, exit and run npm run setup.`);
+    console.log(`echo Git Over Here is pulling from ${blue(process.env.COHORT)}. To change that, exit and run ${green('npm run setup')}.`);
     return process.env.COHORT;
   } else {
     console.log(`echo What is the name of your ${blue('GitHub organization')}? e.g. ${green('sei-nyc-jeopardy')}\n`);
@@ -44,8 +44,9 @@ const main = async () => {
         let user = item.user.login;
         let title = item.title.split(' ')[0].replace(`'s`,'');
         let branch = item.head.ref;
+        console.log(`echo Cloning down ${title}.`);
         console.log(`git clone --single-branch --branch ${branch} ${BASE_URL}${user}/${REPO} ${title} --quiet`);
-        console.log(`cd ${title} ${NPM === 'yes' ? '&& npm install' : ''} && cd ..`);
+        if (NPM === 'yes' || NPM === 'y') console.log(`node ../git-over-here/files.js ${REPO} ${title} | bash`)
       });
       console.log(`echo ${green('Fetch complete!')}`);
       running = false;
@@ -69,7 +70,7 @@ const main = async () => {
           console.log(`echo ${status}`)
           break;
       }
-      console.log(`echo Would you like to try again? yes/no\n`);
+      console.log(`echo Would you like to try again? ${green('yes')}/${red('no')}\n`);
       let tryAgain = prompt.question();
       if (tryAgain !== 'yes') {
         console.log(`echo Thank you for using ${blue('Git Over Here')}.`);
