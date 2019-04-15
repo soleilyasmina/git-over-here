@@ -22,10 +22,10 @@ const main = async () => {
   } else {
     console.log(`echo Welcome to ${blue('Git Over Here')}!`);
   }
+  const COHORT = setCohort();
   let running = true;
   while (running) {
     try {
-      const COHORT = setCohort();
       console.log(`echo Which ${blue('repository')} do you want to pull from? e.g. ${green('js-data-types-homework')}\n`);
       const REPO = prompt.question();
       const resp = await axios({
@@ -49,33 +49,34 @@ const main = async () => {
         if (NPM === 'yes' || NPM === 'y') console.log(`node ../git-over-here/files.js ${REPO} ${title} | bash`)
       });
       console.log(`echo ${green('Fetch complete!')}`);
-      running = false;
+      console.log(`echo Would you like to pull another repo? ${green('yes')}/${red('no')}\n`);
     } catch (e) {
-      bell();
-      let status;
-        try {
-          status = e.response.status;
-        } catch (e) {
-          status = undefined;
+        bell();
+        let status;
+          try {
+            status = e.response.status;
+          } catch (e) {
+            status = undefined;
+          }
+        switch(status) {
+          case 404:
+            console.log(`echo ${red('Sorry, this repo was not found.')}`);
+            break;
+          case undefined:
+            console.log(`echo ${red('Sorry, your connection was interrupted.')}`);
+            break;
+          default:
+            console.log(`echo ${red('Error.')}`);
+            console.log(`echo ${status}`)
+            break;
         }
-      switch(status) {
-        case 404:
-          console.log(`echo ${red('Sorry, this repo was not found.')}`);
-          break;
-        case undefined:
-          console.log(`echo ${red('Sorry, your connection was interrupted.')}`);
-          break;
-        default:
-          console.log(`echo ${red('Error.')}`);
-          console.log(`echo ${status}`)
-          break;
-      }
-      console.log(`echo Would you like to try again? ${green('yes')}/${red('no')}\n`);
-      let tryAgain = prompt.question();
-      if (tryAgain !== 'yes') {
-        console.log(`echo Thank you for using ${blue('Git Over Here')}.`);
-        running = false;
-      }
+        console.log(`echo Would you like to try again? ${green('yes')}/${red('no')}\n`);
+    } finally {
+        let tryAgain = prompt.question();
+        if (tryAgain !== 'yes' && tryAgain !== 'y') {
+          console.log(`echo Thank you for using ${blue('Git Over Here')}.`);
+          running = false;
+        }
     }
   }
   process.exit();
