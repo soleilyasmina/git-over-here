@@ -11,6 +11,10 @@ const white = (text) => `$(tput setaf 7)${text+reset}`;
 
 const bell = () => console.log(`tput bel`);
 
+const echo = text => console.log(`echo ${text}`);
+
 module.exports = {
-  black, red, green, yellow, blue, magenta, cyan, white, bell
+  black, red, green, yellow,
+  blue, magenta, cyan, white,
+  bell, echo
 };
