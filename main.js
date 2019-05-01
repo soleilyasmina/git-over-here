@@ -43,6 +43,7 @@ const main = async () => {
       const submits = resp.data.forEach(item => {
         let user = item.user.login;
         let title = item.title.split(' ')[0].replace(`'s`,'');
+        if (process.argv[2] === '-g') title += `-${user}`;
         let branch = item.head.ref;
         echo(`Cloning down ${title}.`);
         console.log(`git clone --single-branch --branch ${branch} ${BASE_URL}${user}/${REPO} ${title} --quiet`);
