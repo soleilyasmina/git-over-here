@@ -39,6 +39,8 @@ const main = async () => {
       echo(`${green(`${resp.data.length !== 1 ? resp.data.length + ' submissions' : '1 submission' } pulled.`)} Copying into ${blue(`${REPO}`)}.`);
       echo(`Do you need to install any dependencies with ${blue('NPM')}? ${green('yes')}/${red('no')}\n`);
       const NPM = prompt.question();
+      echo(`Do you need to bundle any ${blue('gems')}? ${green('yes')}/${red('no')}\n`);
+      const BUNDLE = prompt.question();
       console.log(`cd .. && rm -rf ${REPO} && mkdir ${REPO} && cd ${REPO}`);
       const submits = resp.data.forEach(item => {
         let user = item.user.login;
@@ -47,7 +49,8 @@ const main = async () => {
         let branch = item.head.ref;
         echo(`Cloning down ${title}.`);
         console.log(`git clone --single-branch --branch ${branch} ${BASE_URL}${user}/${REPO} ${title} --quiet`);
-        if (NPM === 'yes' || NPM === 'y') console.log(`node ../git-over-here/files.js ${REPO} ${title} | bash`)
+        if (NPM === 'yes' || NPM === 'y') console.log(`node ../git-over-here/npm.js ${REPO} ${title} | bash`);
+        if (BUNDLE === 'yes' || BUNDLE === 'y') console.log(`node ../git-over-here/bundle.js ${REPO} ${title} | bash`);
       });
       echo(`${green('Fetch complete!')}`);
       echo(`Would you like to pull another repo? ${green('yes')}/${red('no')}\n`);
