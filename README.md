@@ -5,7 +5,7 @@ A homework helper for GA IAs. Inspired by simon-script.
 
 ## How to Use!
 
-If this is your first time using _Git Over Here_, [make a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line), then run ```npm run setup``` to get started.
+If this is your first time using _Git Over Here_, [make a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line#creating-a-token) with __repo__ permissions, then run ```npm run setup``` to get started.
 
 Follow the instructions and enter your organization's GitHub org (e.g. ```sei-nyc-jeopardy```), what you would like to be called (e.g. ```Homework Lord```), and your personal access token (e.g. `91v0b278wqjceh9qjrx8qw8e129bf8afasdf`).
 
