@@ -8,4 +8,9 @@ function main() {
 
 export -f main
 
-curl "https://git.generalassemb.ly/api/v3/repos/$COHORT/$REPO/pulls" -H "Authorization: token $(sed -n 3p .env | cut -d'=' -f2)" | jq '.[] | @uri "\(.user.login) \(.title) \(.head.ref)"' | xargs -L 3 -I {} sh -c "main $REPO {}"
+cd ..
+rm -rf $1
+mkdir $1
+cd $1
+
+curl "https://git.generalassemb.ly/api/v3/repos/$COHORT/$REPO/pulls" -H "Authorization: token $(sed -n 3p ../git-over-here/.env | cut -d'=' -f2)" | jq '.[] | @uri "\(.user.login) \(.title) \(.head.ref)"' | xargs -L 3 -I {} sh -c "main $REPO {}"
