@@ -6,14 +6,13 @@ const installDependencies = () => {
   fs.recurse(`../${REPO}/${TITLE}`, ['Gemfile', '**/Gemfile'],
     (filepath, relative, filename) => {
       if (filename === 'Gemfile') {
-        const folderDepth = filepath.split('/');
-        folderDepth.pop();
+        let folderWithPJ = filepath.split('/');
+        folderWithPJ.pop();
+        let folder = folderWithPJ.join('/');
         console.log(`echo Installing dependencies for ${TITLE}.`);
-        if (folderDepth.length > 0) console.log(`cd ${filepath.replace('Gemfile', '')}`);
-        console.log('bundle install');
-        for (let i = 0; i < folderDepth.length; i++) {
-          console.log('cd ..');
-        }
+        console.log(`cd ${folder}`);
+        console.log(`bundle install`);
+        console.log(`cd -`);
       }
     });
 };
