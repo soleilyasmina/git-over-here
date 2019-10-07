@@ -4,7 +4,7 @@ const {
   green, blue, red, bell, echo,
 } = require('./style');
 
-const { log } = console;
+const exec = console.log;
 
 require('dotenv').config();
 
@@ -45,16 +45,16 @@ const main = async () => {
         const NPM = prompt.question();
         echo(`Do you need to bundle any ${blue('gems')}? ${green('yes')}/${red('no')}\n`);
         const BUNDLE = prompt.question();
-        log(`cd .. && rm -rf ${REPO} && mkdir ${REPO} && cd ${REPO}`);
+        exec(`cd .. && rm -rf ${REPO} && mkdir ${REPO} && cd ${REPO}`);
         resp.data.forEach((item) => {
           const user = item.user.login;
           let title = item.title.split(' ')[0].replace(`'s`,'');
           if (process.argv[2] === '-g') title += `-${user}`;
           const branch = item.head.ref;
           echo(`Cloning down ${title}.`);
-          log(`git clone --single-branch --branch ${branch} ${BASE_URL}${user}/${REPO} ${title} --quiet`);
-          if (NPM === 'yes' || NPM === 'y') log(`node ../git-over-here/npm.js ${REPO} ${title} | bash`);
-          if (BUNDLE === 'yes' || BUNDLE === 'y') log(`node ../git-over-here/bundle.js ${REPO} ${title} | bash`);
+          exec(`git clone --single-branch --branch ${branch} ${BASE_URL}${user}/${REPO} ${title} --quiet`);
+          if (NPM === 'yes' || NPM === 'y') exec(`node ../git-over-here/npm.js ${REPO} ${title} | bash`);
+          if (BUNDLE === 'yes' || BUNDLE === 'y') exec(`node ../git-over-here/bundle.js ${REPO} ${title} | bash`);
         });
         echo(`${green('Fetch complete!')}`);
       } else { echo(green('0 submissions found.')); }
