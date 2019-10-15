@@ -1,19 +1,20 @@
 . .env
+. style.sh
 
-echo "What is the name of your cohort's GitHub organization? (e.g. sei-nyc-pirates)"
+printf $RESET
+
+echo "Hello $USER!"
+
+echo "What is the name of your cohort's$GREEN GitHub organization$RESET? (e.g. sei-nyc-pirates)"
 read COHORT
-
-echo "How would you like to be greeted by Git Over Here? (e.g. Cool Guy)"
-read COWPOKE
 
 if [ -z $TOKEN ]
 then
-  echo "What is your personal access token?"
+  echo "What is your$GREEN personal access token$RESET?"
   read TOKEN
 else
-  echo "Your token has been previously obtained."
+  echo "Your$GREEN token$RESET has been previously obtained."
 fi
 
-echo COHORT=$COHORT > .env
-echo COWPOKE=$COWPOKE >> .env
-echo TOKEN=$TOKEN >> .env
+echo COHORT="$COHORT" > .env
+echo TOKEN="$TOKEN" >> .env
