@@ -2,6 +2,7 @@
 . style.sh
 
 function main() {
+  echo $RED
   DIR=$(echo $3 | sed 's/%20/-/g' | cut -d' ' -f2)
   echo "Cloning down $DIR."
   git clone --single-branch --branch $4 "https://git.generalassemb.ly/$2/$1.git" --quiet $DIR
@@ -13,7 +14,7 @@ function main() {
 
   if [ -z "$NPMEXISTS" ]
   then
-    echo "No package.json detected. Skipping installation."
+    echo "No package.json detected.$RED Skipping installation.$RESET"
   else
     echo "Installing JS dependencies."
     echo $NPMEXISTS |\
@@ -22,7 +23,7 @@ function main() {
 
   if [ -z "$GEMEXISTS" ]
   then
-    echo "No Gemfile detected. Skipping installation."
+    echo "No Gemfile detected.$RED Skipping installation.$RESET"
   else
     echo "Installing Ruby dependencies."
     echo $GEMEXISTS |\
@@ -47,7 +48,7 @@ printf $RESET
 
 echo "Welcome to Git Over Here,$BLUE $USER$RESET!"
 echo "You're currently pulling from $GREEN$COHORT$RESET."
-echo "What$GREEN repos$RESET would you like to grade? (e.g.$GREEN sequelize-pizza-express-routes rails-books-hw candies)$RESET"
+echo "What$GREEN repos$RESET would you like to grade? (e.g.$GREEN sequelize-pizza-express-routes rails-books-hw candies$RESET)"
 read INPUT
 
 REPOS=( $INPUT )
@@ -67,7 +68,7 @@ do
     cd $REPO
 
     printf "$GREEN"
-    echo "Repository found!"
+    echo "Repository found for $REPO!"
     printf "$RESET"
     OPENPRS="$(curl https://git.generalassemb.ly/api/v3/repos/$COHORT/$REPO/pulls\?state\=all -H "Authorization: token $TOKEN" | jq '.[] | .state' | grep "open" | wc -l | awk '$1=$1')"
     echo "You have $OPENPRS submissions, cloning into$BLUE $REPO$RESET."
