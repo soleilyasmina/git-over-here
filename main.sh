@@ -39,14 +39,14 @@ printf $RESET
 if [ -z "$COHORT" ]
 then
   echo "No cohort registered! Please run$GREEN sh setup.sh!$RESET" && exit 1
-else
-  echo "ls"
 fi
+
 printf $GREEN
 printf "${OPENER}"
 printf $RESET
 
 echo "Welcome to Git Over Here,$BLUE $USER$RESET!"
+echo "You're currently pulling from $GREEN$COHORT$RESET."
 echo "What$GREEN repos$RESET would you like to grade? (e.g.$GREEN sequelize-pizza-express-routes rails-books-hw candies)$RESET"
 read INPUT
 
