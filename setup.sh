@@ -2,10 +2,13 @@
 . style.sh
 
 printf $RESET
+printf $GREEN
+printf "${SETUP}"
+printf $RESET
 
-echo "Hello $USER!"
+echo "Hello,$BLUE $USER$RESET!"
 
-echo "What is the name of your cohort's$GREEN GitHub organization$RESET? (e.g. sei-nyc-pirates)"
+echo "What is the name of your cohort's$GREEN GitHub organization$RESET? (e.g.$GREEN sei-nyc-pirates$RESET)"
 read COHORT
 
 if [ -z $TOKEN ]
