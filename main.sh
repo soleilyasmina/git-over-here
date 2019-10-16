@@ -39,38 +39,44 @@ printf $RESET
 if [ -z "$COHORT" ]
 then
   echo "No cohort registered! Please run$GREEN sh setup.sh!$RESET" && exit 1
+else
+  echo "ls"
 fi
 printf $GREEN
 printf "${OPENER}"
 printf $RESET
 
 echo "Welcome to Git Over Here,$BLUE $USER$RESET!"
-echo "What$GREEN repo$RESET would you like to grade? (e.g.$GREEN sequelize-pizza-express-routes)$RESET"
-read REPO
+echo "What$GREEN repos$RESET (separated by spaces) would you like to grade? (e.g.$GREEN sequelize-pizza-express-routes rails-books-hw candies)$RESET"
+read INPUT
 
-cd ..
-rm -rf $REPO
-mkdir $REPO
-cd $REPO
+REPOS=( $INPUT )
+for REPO in "${REPOS[@]}"
+do
+  SUCCESS=$(curl "https://git.generalassemb.ly/api/v3/repos/$COHORT/$REPO/pulls" -H "Authorization: token $TOKEN" |\
+    grep -o "Not Found")
 
-SUCCESS=$(curl "https://git.generalassemb.ly/api/v3/repos/$COHORT/$REPO/pulls" -H "Authorization: token $TOKEN" |\
-  grep -o "Not Found")
+  if [ "$SUCCESS" == "Not Found" ]
+  then
+    printf "$RED"
+    echo "Repository not found. Please try again."
+  else
+    cd ..
+    rm -rf $REPO
+    mkdir $REPO
+    cd $REPO
 
-if [ "$SUCCESS" == "Not Found" ]
-then
-  printf "$RED"
-  echo "Repository not found. Please try again."
-else
-  printf "$GREEN"
-  echo "Repository found!"
+    printf "$GREEN"
+    echo "Repository found!"
+    printf "$RESET"
+    OPENPRS="$(curl https://git.generalassemb.ly/api/v3/repos/$COHORT/$REPO/pulls\?state\=all -H "Authorization: token $TOKEN" | jq '.[] | .state' | grep "open" | wc -l | awk '$1=$1')"
+    echo "You have $OPENPRS submissions, cloning into$BLUE $REPO$RESET."
+    curl "https://git.generalassemb.ly/api/v3/repos/$COHORT/$REPO/pulls" -H "Authorization: token $TOKEN" |\
+      jq '.[] | @uri "\(.user.login) \(.title) \(.head.ref)"' |\
+      xargs -L 3 -I {} sh -c "main $REPO {}"
+  fi
+
   printf "$RESET"
-  OPENPRS="$(curl https://git.generalassemb.ly/api/v3/repos/$COHORT/$REPO/pulls\?state\=all -H "Authorization: token $TOKEN" | jq '.[] | .state' | grep "open" | wc -l | awk '$1=$1')"
-  echo "You have $OPENPRS open submissions, cloning into$BLUE $REPO$RESET."
-  curl "https://git.generalassemb.ly/api/v3/repos/$COHORT/$REPO/pulls" -H "Authorization: token $TOKEN" |\
-    jq '.[] | @uri "\(.user.login) \(.title) \(.head.ref)"' |\
-    xargs -L 3 -I {} sh -c "main $REPO {}"
-fi
-
-printf "$RESET"
+done
 
 echo "Thank you for using$GREEN Git Over Here."
