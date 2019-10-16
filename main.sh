@@ -47,7 +47,7 @@ printf "${OPENER}"
 printf $RESET
 
 echo "Welcome to Git Over Here,$BLUE $USER$RESET!"
-echo "What$GREEN repos$RESET (separated by spaces) would you like to grade? (e.g.$GREEN sequelize-pizza-express-routes rails-books-hw candies)$RESET"
+echo "What$GREEN repos$RESET would you like to grade? (e.g.$GREEN sequelize-pizza-express-routes rails-books-hw candies)$RESET"
 read INPUT
 
 REPOS=( $INPUT )
