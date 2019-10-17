@@ -103,8 +103,8 @@ do
     if [ -z "$REFRESH" ] || [ -z "$(ls | grep $REPO)" ]
     then
       rm -rf $REPO
-      mkdir $REPO
     fi
+    mkdir $REPO
     cd $REPO
 
     printf "$GREEN"
