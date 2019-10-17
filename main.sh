@@ -28,7 +28,7 @@ function main() {
     else
       echo "Installing JS dependencies."
       echo $NPMEXISTS |\
-        xargs -I '{}' sh -c "cd $(dirname '{}') && npm i --quiet && cd -"
+        xargs -I '{}' sh -c "cd $(dirname '{}') && npm i --silent && cd - > /dev/null"
     fi
 
     if [ -z "$GEMEXISTS" ]
@@ -37,7 +37,7 @@ function main() {
     else
       echo "Installing Ruby dependencies."
       echo $GEMEXISTS |\
-        xargs -I '{}' sh -c "cd $(dirname '{}') && bundle install --quiet && cd -"
+        xargs -I '{}' sh -c "cd $(dirname '{}') && bundle install --quiet && cd - > /dev/null"
     fi
 
     cd ..
@@ -108,11 +108,14 @@ do
     echo "Repository not found. Please try again."
   else
     cd ..
-    if [ -z "$REFRESH" ] || [ -z "$(ls | grep $REPO)" ]
+    if [ -z "$REFRESH" ]
     then
       rm -rf $REPO
     fi
-    mkdir $REPO
+    if [ -z "$(ls | grep $REPO)"]
+    then
+      mkdir $REPO
+    fi
     cd $REPO
 
     printf "$GREEN"
