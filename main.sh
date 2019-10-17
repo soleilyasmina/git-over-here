@@ -60,6 +60,28 @@ then
   echo "No cohort registered! Please run$GREEN sh setup.sh!$RESET" && exit 1
 fi
 
+while [[ "$1" =~ ^- && ! "$1" == "--" ]];
+do
+  case $1 in
+    -l | --lunch)
+      . .env.lunch
+      ;;
+    -r | --refresh)
+      REFRESH="true"
+      ;;
+    -h | --help)
+      echo "usage: sh main.sh [-l | --lunch][-r | --refresh]"
+      echo ""
+      echo "options:"
+      echo "  -h, --help      provides this help screen"
+      echo "  -l, --lunch     reads from .env.lunch for repos"
+      echo "  -r, --refresh   no hard delete, replace and remove instead" 
+      exit
+      ;;
+  esac
+  shift
+done
+
 printf $GREEN
 printf "${OPENER}"
 printf $RESET
@@ -67,20 +89,6 @@ REFRESH=""
 
 echo "Welcome to Git Over Here,$BLUE $USER$RESET!"
 echo "You're currently pulling from $GREEN$COHORT$RESET."
-
-while [[ "$1" =~ ^- && ! "$1" == "--" ]];
-do
-  case $1 in
-    -l | --lunch)
-      . .env.lunch
-      echo "Repos identified. Have a great lunch!"
-      ;;
-    -r | --refresh)
-      REFRESH="true"
-      ;;
-  esac
-  shift
-done
 
 if [ -z "$REPOS" ]
 then
