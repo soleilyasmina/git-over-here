@@ -19,16 +19,20 @@ function main() {
     fi
 
     echo "Checking dependencies for $DIR."
-    NPMEXISTS=$(find . -name 'package.json' ! -path '*node_modules*')
+    NPMEXISTS=($(find . -name 'package.json' ! -path '*node_modules*'))
     GEMEXISTS=$(find . -name 'Gemfile')
 
     if [ -z "$NPMEXISTS" ]
     then
     echo "No package.json detected.$RED Skipping installation.$RESET"
     else
-      echo "Installing JS dependencies."
-      echo $NPMEXISTS |\
-        xargs -I '{}' sh -c "cd $(dirname '{}') && npm i --silent && cd - > /dev/null"
+      for PKG_JSON in "${NPMEXISTS[@]}"
+      do
+        echo "Installing JS dependencies for $(dirname $PKG_JSON | sed "s/./$DIR/" )."
+        cd $(dirname $PKG_JSON)
+        npm i --silent
+        cd - > /dev/null
+      done
     fi
 
     if [ -z "$GEMEXISTS" ]
