@@ -1,3 +1,8 @@
+if [ ! -f .env  ]; then
+  echo ".env does not exist, creating now."
+  echo "# This is an empty Git Over Here .env, run sh setup.sh to fill this file." > .env
+fi
+
 . .env
 . style.sh
 
