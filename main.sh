@@ -39,9 +39,8 @@ function main() {
     then
       echo "No Gemfile detected.$RED Skipping installation.$RESET"
     else
-      echo "Installing Ruby dependencies."
-      echo $GEMEXISTS |\
-        xargs -I '{}' sh -c "cd $(dirname '{}') && bundle install --quiet && cd - > /dev/null"
+      echo "Installing Ruby dependencies for $GEMEXISTS."
+      cd $(dirname $GEMEXISTS) && bundle install --quiet && cd - > /dev/null
     fi
 
     cd ..
